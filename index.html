@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>KARA - Mode pour toutes</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <style>
+:root {
+  --primary-bg: #fef6f0;
+  --primary-text: #2a1e17;
+  --accent: #e4a89b;
+  --light: #ffffff;
+  --dark: #1c1c1c;
+  --card-bg: #ffffff;
+}
+
+[data-theme="dark"] {
+  --primary-bg: #1e1e1e;
+  --primary-text: #f5e9e1;
+  --accent: #e4a89b;
+  --light: #2a2a2a;
+  --dark: #ffffff;
+  --card-bg: #2b2b2b;
+}
+
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--primary-text);
+  transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+header {
+  padding: 20px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: var(--primary-bg);
+}
+
+header h1 {
+  margin: 0;
+  font-family: 'Playfair Display', serif;
+  font-size: 2em;
+}
+
+nav {
+  display: flex;
+  gap: 20px;
+}
+
+nav a {
+  color: var(--primary-text);
+  text-decoration: none;
+}
+
+.theme-toggle {
+  background: none;
+  border: none;
+  font-size: 1.4em;
+  cursor: pointer;
+  color: var(--primary-text);
+  margin-left: 20px;
+}
+
+.menu-toggle {
+  display: none;
+  font-size: 1.5em;
+  background: none;
+  border: none;
+  color: var(--primary-text);
+  cursor: pointer;
+}
+
+.mobile-menu {
+  display: none;
+  flex-direction: column;
+  background-color: var(--primary-bg);
+  position: fixed; /* passer de absolute à fixed */
+  top: 70px;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 70px); /* prendre toute la hauteur sous le header */
+  overflow-y: auto; /* scroll interne si trop grand */
+  padding: 20px;
+  z-index: 1500; /* au-dessus du header */
+}
+
+
+.mobile-menu a {
+  margin: 10px 0;
+  color: var(--primary-text);
+  text-decoration: none;
+}
+
+@media (max-width: 768px) {
+  nav {
+    display: none;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .mobile-menu.active {
+    display: flex;
+  }
+}
+
+.hero {
+  position: relative;
+  text-align: center;
+  padding: 120px 20px;
+  background-color: var(--card-bg);
+  overflow: hidden;
+}
+
+.hero h2 {
+  font-size: 3em;
+  margin-bottom: 10px;
+  z-index: 1;
+  position: relative;
+}
+
+.hero p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+  z-index: 1;
+  position: relative;
+}
+
+.hero button {
+  padding: 10px 20px;
+  font-size: 1em;
+  background-color: var(--accent);
+  color: var(--light);
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+  transition: transform 0.3s ease;
+}
+
+.hero button:hover {
+  transform: scale(1.05);
+}
+
+.hero::before,
+.hero::after,
+.hero .bg-img,
+.hero .bg-img2,
+.hero .bg-img3,
+.hero .bg-img4 {
+  content: '';
+  position: absolute;
+  width: 150px;
+  height: 200px;
+  background-size: cover;
+  background-position: center;
+  opacity: 0.25;
+  z-index: 0;
+  transform: rotate(-5deg);
+  animation: fadeIn 1s ease forwards;
+}
+
+.hero .bg-img { background-image: url('images/acceuil/image\ copy\ 4.png'); top: 20px; left: 10%; }
+.hero::before { background-image: url('images/acceuil/image\ copy\ 5.png'); top: 60px; left: 30%; }
+.hero::after { background-image: url('images/acceuil/image\ copy\ 6.png'); top: 40px; left: 50%; }
+.hero .bg-img2 { background-image: url('images/acceuil/image\ copy\ 7.png'); top: 70px; left: 70%; }
+.hero .bg-img3 { background-image: url('images/acceuil/image\ copy\ 8.png'); top: 100px; left: 20%; }
+.hero .bg-img4 { background-image: url('images/acceuil/Q\ 2.jpg'); top: 130px; left: 80%; }
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 0.25; transform: translateY(0); }
+}
+
+section {
+  padding: 80px 20px;
+  text-align: center;
+}
+
+.section-title {
+  font-size: 2em;
+  margin-bottom: 20px;
+  font-family: 'Playfair Display', serif;
+}
+
+.features, .socials {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+}
+
+.feature, .social {
+  flex: 0 1 200px;
+  background-color: var(--card-bg);
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  transition: transform 0.3s;
+}
+
+.feature:hover, .social:hover {
+  transform: translateY(-5px);
+}
+
+.feature img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  margin-bottom: 10px;
+}
+
+.feature h3 {
+  margin: 10px 0 5px;
+}
+
+/* ----------- SECTION CATEGORIES MODIFIÉE ----------- */
+
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: auto;
+  padding: 0 20px;
+}
+
+.category {
+  text-align: center;
+  background-color: var(--card-bg);
+  padding: 15px;
+  border-radius: 10px;
+  text-decoration: none;
+  color: var(--primary-text);
+}
+
+.category img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.category h3 {
+  margin: 10px 0 5px;
+  font-size: 1.1em;
+  font-family: 'Playfair Display', serif;
+}
+
+.category p {
+  font-size: 0.9em;
+}
+
+.category:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+/* Animation du titre */
+.animated-title {
+  animation: fadeInUp 1s ease-out;
+}
+
+@keyframes fadeInUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* ----------- FIN SECTION CATEGORIES ----------- */
+
+.social i {
+  font-size: 2.5em;
+  color: var(--primary-text);
+  transition: color 0.3s;
+}
+
+.social a:hover i {
+  color: var(--accent);
+}
+
+
+/* Effet hover sur les liens de navigation (desktop + mobile) */
+nav a, .mobile-menu a {
+  position: relative;
+  transition: color 0.3s ease;
+}
+
+nav a::after, .mobile-menu a::after {
+  content: '';
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  bottom: -3px;
+  left: 0;
+  background-color: var(--accent);
+  transition: width 0.3s ease;
+}
+
+nav a:hover, .mobile-menu a:hover {
+  color: var(--accent);
+}
+
+nav a:hover::after, .mobile-menu a:hover::after {
+  width: 100%;
+}
+
+/* Effet hover sur les boutons */
+button:hover {
+  filter: brightness(1.1);
+  transform: scale(1.05);
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+  </style>
+</head>
+<body data-theme="light">
+    <header>
+      <h1>KARA</h1>
+    <nav>
+      <a href="#">Accueil</a>
+      <a href="#contact">Contact</a>
+      <a href="#socials">Réseaux sociaux</a>
+    </nav>
+
+      <button class="theme-toggle" onclick="toggleTheme()">
+        <i id="theme-icon" class="fas fa-sun"></i>
+      </button>
+      <button class="menu-toggle" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </header>
+  
+    <div class="mobile-menu" id="mobileMenu">
+      <a href="#">Accueil</a>
+      <a href="#contact">Contact</a>
+      <a href="#socials">Réseaux sociaux</a>
+    </div>
+  
+    <section class="hero">
+      <h2>Élégance. Confort. Style.</h2>
+      <p>Découvrez la mode pensée pour toutes les femmes.</p>
+      <button onclick="window.location.href='pages/collection.html'">Voir nos collections</button>
+      <div class="bg-img"></div>
+      <div class="bg-img2"></div>
+      <div class="bg-img3"></div>
+      <div class="bg-img4"></div>
+      <div class="bg-img5"></div>
+      <div class="bg-img6"></div>
+    </section>
+  
+    <section id="categories">
+  <h2 class="section-title animated-title">Nos Catégories</h2>
+  <div class="categories-grid">
+    <a class="category" href="pages/lingerie.html">
+      <img src="images/acceuil/lingerie.png" alt="Lingerie">
+      <h3>Lingerie</h3>
+      <p>Découvrez notre collection élégante de lingerie pour toutes les occasions.</p>
+    </a>
+    <a class="category" href="pages/robes-de-soiree.html">
+      <img src="images/acceuil/robe-de-soiree.png" alt="Robes de soirée">
+      <h3>Robes de soirée</h3>
+      <p>Des robes glamour parfaites pour vos plus belles soirées.</p>
+    </a>
+    <a class="category" href="pages/robes-ete.html">
+      <img src="images/acceuil/robe-ete.png" alt="Robes d'été">
+      <h3>Robes d'été</h3>
+      <p>Des tenues fraîches et colorées idéales pour l'été.</p>
+    </a>
+    <a class="category" href="pages/casual.html">
+      <img src="images/acceuil/tenue-decontractee.png" alt="Tenues décontractées">
+      <h3>Tenues décontractées</h3>
+      <p>Confort et style pour tous les jours avec notre sélection décontractée.</p>
+    </a>
+  </div>
+</section>
+
+    
+  
+    <section class="features">
+      <h2 class="section-title">Pourquoi choisir KARA ?</h2>
+      <div class="features">
+        <div class="feature">
+          <img src="images/acceuil/qualite.png" alt="Qualité">
+          <h3>Qualité supérieure</h3>
+          <p>Des matières soigneusement sélectionnées pour un confort optimal.</p>
+        </div>
+        <div class="feature">
+          <img src="images/acceuil/deliver.png" alt="Livraison">
+          <h3>Livraison rapide</h3>
+          <p>Recevez vos commandes en un temps record où que vous soyez.</p>
+        </div>
+        <div class="feature">
+          <img src="images/acceuil/support.png" alt="Support">
+          <h3>Service client</h3>
+          <p>Une équipe dédiée pour répondre à toutes vos questions.</p>
+        </div>
+      </div>
+    </section>
+  
+    <section id="contact" style="padding: 60px 20px; background-color: var(--primary-bg); color: var(--primary-text);">
+      <h2 class="section-title">Contactez-nous</h2>
+      <p style="max-width: 600px; margin: 0 auto 40px auto; font-size: 1.1em; line-height: 1.5;">
+        Vous avez une question, une suggestion ou souhaitez en savoir plus ? Envoyez-nous un message, nous vous répondrons rapidement !
+      </p>
+      <form action="https://formsubmit.co/ton-email@example.com" method="POST" style="max-width: 500px; margin: 0 auto; display: flex; flex-direction: column; gap: 25px;">
+        <input type="text" name="name" placeholder="Votre nom" required
+          style="
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1.8px solid #ccc;
+            font-size: 1em;
+            color: var(--primary-text);
+            background-color: var(--light);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          "
+          onfocus="this.style.borderColor = 'var(--accent)'; this.style.boxShadow='0 4px 12px rgba(228,168,155,0.6)';"
+          onblur="this.style.borderColor = '#ccc'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.07)';"
+        />
+        <input type="email" name="email" placeholder="Votre email" required
+          style="
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1.8px solid #ccc;
+            font-size: 1em;
+            color: var(--primary-text);
+            background-color: var(--light);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          "
+          onfocus="this.style.borderColor = 'var(--accent)'; this.style.boxShadow='0 4px 12px rgba(228,168,155,0.6)';"
+          onblur="this.style.borderColor = '#ccc'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.07)';"
+        />
+        <textarea name="message" rows="5" placeholder="Votre message" required
+          style="
+            padding: 14px 18px;
+            border-radius: 12px;
+            border: 1.8px solid #ccc;
+            font-size: 1em;
+            color: var(--primary-text);
+            background-color: var(--light);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.07);
+            resize: vertical;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+          "
+          onfocus="this.style.borderColor = 'var(--accent)'; this.style.boxShadow='0 4px 12px rgba(228,168,155,0.6)';"
+          onblur="this.style.borderColor = '#ccc'; this.style.boxShadow='0 2px 5px rgba(0,0,0,0.07)';"
+        ></textarea>
+        <button type="submit"
+          style="
+            padding: 16px 0;
+            background-color: var(--accent);
+            color: var(--light);
+            border: none;
+            border-radius: 14px;
+            font-size: 1.2em;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(228,168,155,0.5);
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+          "
+          onmouseover="this.style.backgroundColor='#d89085'; this.style.boxShadow='0 7px 20px rgba(216,144,133,0.8)';"
+          onmouseout="this.style.backgroundColor='var(--accent)'; this.style.boxShadow='0 5px 15px rgba(228,168,155,0.5)';"
+        >
+          Envoyer
+        </button>
+      </form>
+    </section>
+    
+  
+    <section id="socials">
+      <h2 class="section-title">Suivez-nous</h2>
+      <div class="socials">
+        <div class="social">
+          <a href="https://facebook.com" target="_blank" aria-label="Facebook">
+            <i class="fab fa-facebook"></i>
+          </a>
+        </div>
+        <div class="social">
+          <a href="https://instagram.com" target="_blank" aria-label="Instagram">
+            <i class="fab fa-instagram"></i>
+          </a>
+        </div>
+        <div class="social">
+          <a href="https://www.tiktok.com" target="_blank" aria-label="TikTok">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+        <div class="social">
+          <a href="https://wa.me/123456789" target="_blank" aria-label="WhatsApp">
+            <i class="fab fa-whatsapp"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer style="
+  background-color: var(--card-bg);
+  color: var(--primary-text);
+  text-align: center;
+  padding: 15px 20px;
+  font-size: 0.9em;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.05);
+  margin-top: 40px;
+">
+  © Boutique KARA 2025
+</footer>
+
+  
+<script>
+  // Fonction pour basculer le thème clair/sombre
+  function toggleTheme() {
+    const body = document.body;
+    const icon = document.getElementById('theme-icon');
+    if (body.getAttribute('data-theme') === 'dark') {
+      body.setAttribute('data-theme', 'light');
+      icon.classList.remove('fa-moon');
+      icon.classList.add('fa-sun');
+    } else {
+      body.setAttribute('data-theme', 'dark');
+      icon.classList.remove('fa-sun');
+      icon.classList.add('fa-moon');
+    }
+  }
+
+  // Fonction pour ouvrir/fermer le menu mobile et bloquer le scroll du body
+  function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    const isActive = menu.classList.contains('active');
+    if (isActive) {
+      menu.classList.remove('active');
+      document.body.style.overflow = ''; // réautorise le scroll
+    } else {
+      menu.classList.add('active');
+      document.body.style.overflow = 'hidden'; // bloque le scroll
+    }
+  }
+
+  // Optionnel : fermer le menu quand on clique sur un lien mobile (pratique UX)
+  document.querySelectorAll('.mobile-menu a').forEach(link => {
+    link.addEventListener('click', () => {
+      const menu = document.getElementById('mobileMenu');
+      if (menu.classList.contains('active')) {
+        menu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // Scroll fluide pour les liens d'ancrage dans menu (desktop + mobile)
+  document.querySelectorAll('nav a, .mobile-menu a').forEach(link => {
+    link.addEventListener('click', e => {
+      const href = link.getAttribute('href');
+      if (href.startsWith('#') && href.length > 1) {
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+      // Fermer menu mobile si ouvert
+      const menu = document.getElementById('mobileMenu');
+      if (menu.classList.contains('active')) {
+        menu.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+    });
+  });
+</script>
+
+  </body>
+  
+</html>
